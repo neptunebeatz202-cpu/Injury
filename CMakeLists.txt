@@ -33,6 +33,8 @@ juce_add_plugin(Injury
     COPY_PLUGIN_AFTER_BUILD FALSE
 )
 
+target_include_directories(Injury PRIVATE Source)
+
 # ── Embedded binary resources ──────────────────────────────────────────────────
 juce_add_binary_data(InjuryBinaryData
     SOURCES
