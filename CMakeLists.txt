@@ -15,10 +15,14 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(JUCE)
 
+# This line is the crucial fix for the "target not found" error.
+# It makes the recommended_warning_flags and recommended_config_flags visible.
+include(${juce_SOURCE_DIR}/extras/Build/CMake/JUCEUtils.cmake)
+
 # ── Plugin target ──────────────────────────────────────────────────────────────
 juce_add_plugin(Injury
     COMPANY_NAME            "Injury Audio"
-    BUNDLE_ID               "com.injuryaudio.injury" # Fixes the space/warning issue
+    BUNDLE_ID               "com.injuryaudio.injury" # Fixed space to prevent warnings
     PLUGIN_MANUFACTURER_CODE InjA
     PLUGIN_CODE             Inj1
     FORMATS                 VST3 AU Standalone
@@ -76,7 +80,7 @@ target_link_libraries(Injury PRIVATE
     juce::juce_graphics
     juce::juce_gui_basics
     juce::juce_gui_extra
-    juce::recommended_config_flags   # Using the standard JUCE namespace
-    juce::recommended_warning_flags  # Using the standard JUCE namespace
+    juce::recommended_config_flags
+    juce::recommended_warning_flags
     InjuryBinaryData
 )
