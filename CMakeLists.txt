@@ -15,9 +15,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(JUCE)
 
+# Explicitly include helper targets to fix the "recommended_warning_flags" error
+include(${juce_SOURCE_DIR}/extras/Build/CMake/JUCEHelperTargets.cmake)
+
 # ── Plugin target ──────────────────────────────────────────────────────────────
 juce_add_plugin(Injury
     COMPANY_NAME            "Injury Audio"
+    BUNDLE_ID               "com.injuryaudio.injury" # Removed space to fix CMake warning
     PLUGIN_MANUFACTURER_CODE InjA
     PLUGIN_CODE             Inj1
     FORMATS                 VST3 AU Standalone
@@ -32,7 +36,7 @@ juce_add_plugin(Injury
     COPY_PLUGIN_AFTER_BUILD FALSE
 )
 
-# ── Embedded binary resources (background image, etc.) ─────────────────────────
+# ── Embedded binary resources ──────────────────────────────────────────────────
 juce_add_binary_data(InjuryBinaryData
     SOURCES
         Resources/background.jpg
@@ -62,7 +66,6 @@ target_compile_definitions(Injury PUBLIC
 
 # ── JUCE modules + binary data ────────────────────────────────────────────────
 target_link_libraries(Injury PRIVATE
-    InjuryBinaryData
     juce::juce_audio_basics
     juce::juce_audio_devices
     juce::juce_audio_formats
@@ -77,4 +80,5 @@ target_link_libraries(Injury PRIVATE
     juce::juce_gui_basics
     juce::juce_gui_extra
     juce::recommended_warning_flags
+    InjuryBinaryData # Linked after modules for better inheritance
 )
