@@ -15,13 +15,10 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(JUCE)
 
-# Explicitly include helper targets to fix the "recommended_warning_flags" error
-include(${juce_SOURCE_DIR}/extras/Build/CMake/JUCEHelperTargets.cmake)
-
 # ── Plugin target ──────────────────────────────────────────────────────────────
 juce_add_plugin(Injury
     COMPANY_NAME            "Injury Audio"
-    BUNDLE_ID               "com.injuryaudio.injury" # Removed space to fix CMake warning
+    BUNDLE_ID               "com.injuryaudio.injury" # Fixes the space/warning issue
     PLUGIN_MANUFACTURER_CODE InjA
     PLUGIN_CODE             Inj1
     FORMATS                 VST3 AU Standalone
@@ -79,6 +76,7 @@ target_link_libraries(Injury PRIVATE
     juce::juce_graphics
     juce::juce_gui_basics
     juce::juce_gui_extra
-    juce::recommended_warning_flags
-    InjuryBinaryData # Linked after modules for better inheritance
+    juce::recommended_config_flags   # Using the standard JUCE namespace
+    juce::recommended_warning_flags  # Using the standard JUCE namespace
+    InjuryBinaryData
 )
