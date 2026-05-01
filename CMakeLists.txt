@@ -18,9 +18,9 @@ FetchContent_MakeAvailable(JUCE)
 # ── Plugin target ──────────────────────────────────────────────────────────────
 juce_add_plugin(Injury
     COMPANY_NAME            "Injury Audio"
-    BUNDLE_ID               "com.injuryaudio.injury" # Fixed space to prevent warnings
+    BUNDLE_ID               "com.injuryaudio.injury"
     PLUGIN_MANUFACTURER_CODE InjA
-    PLUGIN_CODE             Inj1
+    PLUGIN_CODE             InjS
     FORMATS                 VST3 AU Standalone
     PRODUCT_NAME            "Injury"
     IS_SYNTH                TRUE
@@ -30,6 +30,8 @@ juce_add_plugin(Injury
     EDITOR_WANTS_KEYBOARD_FOCUS FALSE
     VST3_CATEGORIES         "Instrument|Synth"
     AU_MAIN_TYPE            kAudioUnitType_MusicDevice
+    AU_EXPORT_PREFIX        InjuryAU
+    HARDENED_RUNTIME_ENABLED TRUE
     COPY_PLUGIN_AFTER_BUILD FALSE
 )
 
@@ -84,4 +86,3 @@ target_link_libraries(Injury
         juce::juce_recommended_config_flags
         juce::juce_recommended_warning_flags
 )
-
