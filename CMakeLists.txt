@@ -15,10 +15,6 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(JUCE)
 
-# This line is the crucial fix for the "target not found" error.
-# It makes the recommended_warning_flags and recommended_config_flags visible.
-include(${juce_SOURCE_DIR}/extras/Build/CMake/JUCEUtils.cmake)
-
 # ── Plugin target ──────────────────────────────────────────────────────────────
 juce_add_plugin(Injury
     COMPANY_NAME            "Injury Audio"
